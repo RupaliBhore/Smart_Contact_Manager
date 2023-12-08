@@ -1,0 +1,30 @@
+
+<!-- base.html me jo bhi content hoga osara is page me aayega "layout(content) conetent ki jagah jo bhi page doge o page is page se 
+replace hoga-->
+  
+    <!-- Required meta tags -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>HOME</title>
+</head>
+<body>
+         
+         
+         <section class="banner d-flex justify-content-center align-items-center">
+         
+         <div class="text-center">
+             <h1 class="font-weight-bold">Smart Contact Manager</h1>
+             <p>
+               Start Collection your contacts in very smarter way.we provide very
+               efficient and smarter way of handling contacts.
+              </p>
+              
+              <button class="btn bg-primary btn-large text-white">Get Started</button>
+         </div>
+         
+         
+         </section>
+</body>
+</html>

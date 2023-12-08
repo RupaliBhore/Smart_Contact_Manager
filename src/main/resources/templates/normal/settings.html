@@ -1,0 +1,129 @@
+
+<!-- Required meta tags -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+th:replace="normal/base::layout(~{::section})">
+<!-- only base likhoge to ye templete wala base ko inherit karega isaliye use batao normal fodler ka base inherit karo "normal/base-->
+<head>
+<meta charset="ISO-8859-1">
+<title>Settings</title>
+</head>
+<body>
+
+         
+      <!-- changing password after matching BACKEND CODE -->   
+         <section>
+         
+        
+              <div class="container">
+              
+              <div class="row">
+              
+              <div class="col-md-12">
+              
+              <div class="card mr-3  mt-5">
+              
+              <div class="card-body">
+              
+              
+              <h3 class="mb-3"> Change Password</h3>
+              
+              <!-- is wale url pe form submit hoga -->
+              <form th:action="@{/user/change-password}"  method="post">
+              
+              
+            <!--   old password feild  -->
+            
+            <div class="form-group">
+            
+            <input name="oldPassword" type="password" class="form-control" placeholder="Enter Old Password"     />
+            
+            </div>
+              
+              
+              <!-- new password feild -->
+               <div class="form-group">
+            
+            <input  name="newPassword" type="password" class="form-control" placeholder="Enter new Password"     />
+            
+            </div>
+            
+            
+            <div class="contaniner  text-center">
+            
+            <button type ="submit"  class="btn btn-success">Change</button>
+            <button type="reset" class="btn btn-warning">Reset</button>
+            </div>
+              
+              
+              
+              </form>
+              
+              
+              </div>
+              
+              
+              
+              </div>
+              
+              
+              
+              
+              
+              </div>
+              
+              
+              
+              
+              </div>
+              
+              
+              
+              </div>
+         
+        
+         <script >
+         
+            $(document).ready(()=>{
+
+                 $(".item").removeClass("active");
+
+                 $("#settings-link").addClass("active");
+
+            });
+               
+               </script>
+         </section>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>User Dashbord</title>
+</head>
+<body>
+<h2>welcome you are normal user</h2>
+<h1>this is your private dashborad</h1>
+
+user ek object he aur name user class ki properti hi user ki sari properties aap yese nikal sakate ho user. lagake
+<h1> User Name: <span th:text="${user.name}"></span></h1> 
+<h1> User Email: <span th:text="${user.email}"></span></h1> 
+
+logout karana he to
+<h1><a href="" th:href="@{/logout}">logout</a></h1>
+</body>
+</html> -->

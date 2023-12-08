@@ -1,0 +1,171 @@
+<!-- Required meta tags -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>singup</title>
+</head>
+<body>
+
+
+	<section>
+		<div class="container">
+
+			<div class="row">
+
+				<!-- boostrap me har row ke pass 12 grid hoti he -->
+				
+				<div class="col-md-6 offset-md-2">
+
+					<div class="my-card mt-1">
+					
+					 <!-- isa message ko tabi dikhainge jab apaki session me message attribute ho -->
+					   <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
+                          <p class="text-center" th:text="${session.message.content}"></p>
+                          
+                          <!-- ek baar message print karane ke baad use remove bhi karana he -->
+                          <th:blok th:text="${#session.removeAttribute('message')}"> </th:blok>
+                       </div> 
+					
+					<!-- koi chiz agar center nhi ho rahi he to sidha sidha div lagalo aur usko center classs dedo -->
+					
+					<div class="container text-center">
+					
+					<img class="" style="width: 80px;" alt="" th:src="@{/image/membership.png}"/>
+					
+					</div>
+					
+
+						<h1 class="text-center">Register Here !!</h1>
+
+<!-- @{/do_register}" ye humara url he jaha pe hamar foram submit hoga.  isme from ki by defuolt validation hoti ha agar o nahi chaiye
+to <form novalidate ise likho bye defoult jo validation laga hota he o remove hoga	 -->
+						<form  action="" th:action="@{/do_register}" method="post" th:object="${user}">
+
+
+
+
+							<!-- Name Feild -->
+							
+<!-- invalid ko by defolut nahi dikhana he jab error ayagi tab hi ye dikhana chaiye th:classappend="${#fields.hasErrors('name')? 'is-invalid':''}"
+ name feild pe agar kuch error aati he tabi is-invalid chalna chiye  otherwise nahi is-invalid chalane ke baad hi invalid feedback milta ha-->
+
+							<div class="form-group is-invalid">
+							
+
+								<label for="name_field">Your Name</label>
+								 
+								<!-- input name="name" name jo likha he ye user class ke jo feild he o he jise data automatic aayega-->
+								
+								<input   name="name" type="text" class="form-control"  
+								
+								
+								th:classappend="${#fields.hasErrors('name')? 'is-invalid':''}"
+								
+								id="name_field"
+								
+									aria-describedby="emailHelp" placeholder="Enter here" required
+									
+									th:value="${user.name}"/>
+							</div>
+							
+							
+							<!-- invalid feedback tabi dikhega jab aap apane class me lagate ho is-invalid -->
+							<div class="invalid-feedback" th:each="e :${#fields.hasErrors('name')}"  th:text="${e}">
+                             Please provide a valid state.
+                              </div>
+
+
+							<!-- EMAIL Feild -->
+
+
+							<div class="form-group">
+
+								<label for="email_field">Your Email</label> 
+								
+								<input name="email" type="email" class="form-control" id="email_field"
+								
+									aria-describedby="emailHelp" placeholder="Enter here" required 
+									
+									th:value="${user.email}"/>
+
+							</div>
+							
+							
+							<!-- Password Feild -->
+
+
+							<div class="form-group">
+
+								<label for="password_field">Your password</label> 
+								
+								<input  name="password" type="password" class="form-control" id="password_field"
+								
+									aria-describedby="emailHelp" placeholder="Enter here" required />
+
+							</div>
+							
+							
+							
+							
+					<!-- user about field    th:text="" jab aap term check nahi karte to form ki details aap dikhani chaiye isaliye-->
+							
+							<div class="form-group">
+							                                   <!-- rows="6" jitana rows ki size doge uthana about ka box bada hoga -->
+							<textarea name="about" th:text=="${user.about}"  placeholder="Enter something your self" rows="5" 
+							class="form-control"></textarea>
+							
+							</div>
+							
+							
+							
+							<!-- checkbox terms and condition -->
+								<div class="form-group form-check text-center">
+								
+								<input type="checkbox"
+								name="agreement"
+								class="form-check-input"
+								id="agreement" />
+								
+								
+								<label for="agreement">Accept terms and condition</label>
+								</div>
+								
+								
+								
+								
+								
+								
+							
+							<!-- create buttons  btn-block button badi hoti he jitana form he uthana-->
+							<div class="container  text-center">
+							
+							<button type="submit" class="btn  bg-primary  text-white">
+							    Submit
+							</button>
+							
+							
+							<button type="reset" class="btn  btn-warning">
+							    Reset
+							</button>
+							
+							
+							</div>
+
+						</form>
+
+					</div>
+
+
+				</div>
+
+			</div>
+
+
+
+		</div>
+
+	</section>
+</body>
+</html>

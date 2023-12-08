@@ -1,0 +1,198 @@
+<!-- Required meta tags -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<!-- only base likhoge to ye templete wala base ko inherit karega isaliye use batao normal fodler ka base inherit karo "normal/base-->
+<head>
+<meta charset="ISO-8859-1">
+<title>show Contacts</title>
+</head>
+<body>
+
+
+	<section>
+
+		<div class="card mr-3 ml-3">
+
+			<div class="card-body">
+
+				<h1 class="text-center">Your Contacts</h1>
+
+                <!-- Search Bar -->
+                 <!-- my matlab margin x,y uper se niche tak -->
+                <div class="search-container  my-4">
+                
+                
+                <!--onkeyup="search() javascript ka function ha jise hi aap koi key utavoge search function call hoga -->
+                <input onkeyup="search()" id="search-input" type="text" class="form-control" placeholder="Search your contacts"/>
+               
+               
+<!-- result hum dyanamic fill karenge javascript ki help se js ke pass ek acha feature he jo dom ko manipulate karata  hai
+dom me element add,delete,modified kar sakata he--> 
+
+                <div class="search-result">
+                
+                <!-- result goes here -->
+                <h1>this is result</h1>
+                
+                
+<!-- jo bhi search box me search karoge o yaha dikhega search-input se apako query leni he fir background me apako search karana he
+bacground me result serch huva to o yaha dekhega -->
+                
+                </div>
+                
+                
+                
+                
+                </div>
+
+                    <div class="table-responsive">
+				<table class="table table-hover">
+					<thead class="thead-light">
+						<tr>
+							<th scope="col">#ID</th>
+							<th scope="col">Name</th>
+							<th scope="col">Email</th>
+							<th scope="col">Phone</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+<!-- c me muse conatacts  chaiye  jitane bi conats he usn contactas ko show karana he isaliye each loop lagaya.jitane contacs hoge utane 
+tr rows reapt honge-->
+						<tr th:each="c:${contacts}">
+						
+						<!-- scm likhane ke baad user word ko aapend kiya yera ke baad user id aayegi ex=SCMUSER1 -->
+							<th scope="row" th:text="${'SCMUSER'+c.cId}">1</th>
+							
+							
+							
+							
+							<td> 
+<!-- photo hume dyanamic laani he to th:src  dayanamic iamge hume contact se nikalani he to c.image} contact class ke andhr ye feild he
+my_profile_picture css ki lagate he taki image ko width higth sahi ho-->
+							<img src="" class="my_profile_picture"
+							th:src="@{'/image/'+${c.image}}" alt="profilephoto"/>
+							
+							<span th:text="${c.name}"></span>    
+							 </td>
+							
+							
+							
+	<!-- email pe hum click kare to us user ki sari setail hume show ho  Id url ke bich me dekhegi user/27contact/-->
+							<td>
+							
+							<a href="#" th:href="@{'/user/'+${c.cId}+'/contact'}">
+							
+							<span  th:text="${c.email}"></span>
+							
+							
+							</a>
+							
+							
+							</td>
+							
+							
+							
+							<td th:text="${c.phone}">phone</td>
+						  <td>
+						  
+						  <!-- th:href="@{'/user/delete/'+${c.cId}}" -->
+						  
+						  <!-- deleteConatcat ye scrpit ka function he aur scpript me dyanamic value lene ke liye pipe | lagana hota he -->
+						                <!-- Delete And Update Button -->
+						                
+						      <a href="#" th:onclick="|deleteContact(${c.cId})|" class="btn btn-danger btn-sm">Delete</a>
+						      
+						      
+ <!-- agar aap anchor tag <a> dete to to by defoult o get request hogi matlab hum post request dena chah rahe  heto ise ek form me 
+ rakhenge post method use kiyi he to apako batana padega ki ye user se upadte-contact form he
+ post method matlab aap url copy karte ho acess karne ki koshis karoge to acess nhi hoga url error aayaegi request method GET not supported
+   agar aap get method use karoge to aap ko if condition alaga se likhani padegi-->
+						      
+						      
+						      <form method="post" th:action="@{'/user/update-contact/'+${c.cId}}"  class="mt-2">
+						     
+						       <button type="submit" class="btn btn-primary btn-sm">Update</button>
+						      
+						      
+						      </form>
+						      
+						      
+						      
+						      
+						  </td>
+						</tr>
+						
+					</tbody>
+				</table>
+				
+				</div>
+				<!-- Pagination part -->
+				<nav aria-label="Page navigation example">
+				
+     <ul class="pagination">
+     
+                                      <!-- Previous button coding -->
+     <!--  <privious page kab dikhana nahi he {Currentpage matalb url me jo page hoga user/show-contacts/1# 
+     condition false hogi tabi privius button gayab hogi-->
+     
+    <li th:if="${Currentpage != 0}" class="page-item">
+    <a th:href="@{'/user/show-contacts/'+${Currentpage-1}}" class="page-link" href="#">Previous</a></li>
+    
+    
+    
+    
+    
+                                  <!-- page pe click kare to o active ho -->
+   <!-- jitane bhi pages honge o ek ek karke i me aajaynge..  1 se totalpage tak loop chalega--> 
+   <!-- ${Currentpage==i-1} matalb /user/show-contacts/0 url me 0 page me se 1 minus kare to page jo aa raha he aur me me page ka jo number
+   aa raha he ye barabar he to aap current page pe ho.. url me 1 he aur page 2 he to 2-1=1 matalab aap 1 page pe ho 
+   matalb i ke barabar page he to muze classappend karana he muze active lagana he otherwise aap koi bhi class le lo
+   active matalb jis number ke page pe ho o number dark blue me dikhega -->
+   
+    <li th:classappend="${Currentpage==i-1? 'active':''}" th:each="i: ${#numbers.sequence(1,totalPages)}" class="page-item">
+    
+    
+                              <!-- page  pe click kare to o active ho -->
+    <!-- page ke number pe click kare to o page open ho isisliye <a> anchor tag link di static karani isiliye humane path ko '' single
+    qoute me likha he + ke baad jo chiz dyanamic laani he o lelo -->
+    
+    <a th:href="@{'/user/show-contacts/'+${i-1}}" class="page-link" href="#">
+    <span th:text="${i}" ></span></a></li>
+    
+     
+     
+                    <!-- next button coding -->
+    <!-- next pe click karu to me agale page pe jau aur koi agala page nahi he to next wali button hi na dikhai de  current page me agar me 1
+    add karata hu to agar o not equal to totalpages he
+    currentpage+1 kya ye totalpage ke barabar nahi he condition flase hogi to ye nahi dikhega condition true hogi to hi dikhega mmatlab 
+    jab jab aap last page pe aao tab tab ye condition flase ho jaygi aur ye ${Currentpage+1 print hi nahi hoga-->
+    
+    <li th:if="${Currentpage+1 != totalPages}"  class="page-item">
+    <a th:href="@{'/user/show-contacts/'+${Currentpage+1}}" class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+
+
+			</div>
+
+
+
+		</div>
+
+
+
+           <script>
+                $(document).ready(()=>{
+
+                 $(".item").removeClass("active");
+
+                 $("#contacts-link").addClass("active");
+
+            });
+            </script>
+	</section>
+</body>
+</html>

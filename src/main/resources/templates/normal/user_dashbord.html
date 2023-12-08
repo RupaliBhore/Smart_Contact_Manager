@@ -1,0 +1,102 @@
+
+<!-- Required meta tags -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+th:replace="normal/base::layout(~{::section})">
+<!-- only base likhoge to ye templete wala base ko inherit karega isaliye use batao normal fodler ka base inherit karo "normal/base-->
+<head>
+<meta charset="ISO-8859-1">
+<title>DashBoard</title>
+</head>
+<body>
+         
+         
+         <section>
+         
+         <div class="container">
+         
+         <div class="card">
+         
+         <!-- my matlab margin x,y uper se niche tak -->
+         <div class="card-body my-5">
+         
+         
+         
+               <div class="container text-center" >
+              
+               <!-- jo login he uski image dekhegi sabase uper your profile pe click kare to -->
+               <img src="" style="height:150px;  width:150px;"   class="my_profile_picture"
+							th:src="@{'/image/contact-logo.png'}" alt="profilephoto" />
+               
+               </div>
+               
+               <!-- text-secondary grey ho jayega text color -->
+               <h1 class="text-center mt-3 text-secondary font-italic font-weight-light">
+                                Start Adding Your On Cloud....
+               </h1>
+               
+               
+               <a th:href="@{/user/add-contact}" class="btn btn-primary btn-block text-uppercase">Add New Contact</a>
+         
+         
+         </div>
+         
+         
+         </div>
+         
+         
+         
+         </div>
+         
+         <!-- jab home page chalega tab ye script chalegi home pe jaoge to alter box uper aayega -->
+         
+         
+         
+         <!-- jab aap sidebar ke home pe click karoge to green color hoga by defoult home active hoga -->
+         <script >
+              
+         
+         
+            $(document).ready(()=>{
+
+                 $(".item").removeClass("active");
+
+                 $("#home-link").addClass("active");
+
+            });
+               
+               </script>
+         </section>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>User Dashbord</title>
+</head>
+<body>
+<h2>welcome you are normal user</h2>
+<h1>this is your private dashborad</h1>
+
+user ek object he aur name user class ki properti hi user ki sari properties aap yese nikal sakate ho user. lagake
+<h1> User Name: <span th:text="${user.name}"></span></h1> 
+<h1> User Email: <span th:text="${user.email}"></span></h1> 
+
+logout karana he to
+<h1><a href="" th:href="@{/logout}">logout</a></h1>
+</body>
+</html> -->

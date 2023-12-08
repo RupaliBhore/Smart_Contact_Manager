@@ -1,0 +1,248 @@
+<!-- boostrap 4 open karo aur started templet copy karo aur pura pest karo apako css,js milegi isame 
+  is pure html page ko fragment banayenge content ki jagah agar apane index.html pass kiya to isa page o sara content aayega jo 
+  index.html page pe he becaouse yaha humane use kiya he repalce-->
+
+<!-- is page me jo kuch conent hoga o normal folder me jitane bhi html pages he uname inherit joke jayega -->
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:fragment="layout(content)">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+
+<!-- font aswom  icons ko use karane ke liye ye link must he sidebar ke icon -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+	integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- home controller pe jo title diya he o title hum yaha se access karnge dyanamically -->
+<title th:text="${title}">BASE</title>
+
+<!-- humane jo style.css banai he usako include karte he base me -->
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+
+
+
+<!-- jQuery ko jab aap head me lagate ho to jQuery ka code achha chalta he loading pahile ho jayega -->
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+
+</head>
+<body>
+	<!--   <h1>THIS IS A BASE!</h1>-->
+
+	<!-- navbar ko sticky banaya  sticky-top  -->
+
+	<!-- START NAVBARthis is nevbar cpy form boostrap4 -->
+
+	<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
+
+		<a class="navbar-brand" href="#">Smart Contact Manager</a>
+
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+			<!-- ml-auto matalb left side pe navbar jayaga home,link,sare left me chale jaynge-->
+			<ul class="navbar-nav ml-auto text-uppercase">
+
+				<!-- HOME LINK -->
+				<li class="nav-item active"><a th:href="@{/}" class="nav-link"
+					href="#">Home <span class="sr-only">(current)</span>
+				</a></li>
+
+
+
+				<!-- Login link   login pe click karane ke baad index.html page open ho jayga-->
+
+				<li class="nav-item"><a class="nav-link " href="#"
+					tabindex="-1" aria-disabled="true"><span th:text="${user.name}"></span></a></li>
+				<!--navbar me jaha login tha waha user ka naam dikhega jis user ne login kiya he ${user.name} -->
+
+
+				<!-- logout link  th:href="@{/logout/}" jab aap logout pe clik karoge to logout page open hoga-->
+
+				<li class="nav-item"><a class="nav-link " th:href="@{/logout}"
+					href="#" tabindex="-1" aria-disabled="true">Logout</a></li>
+			</ul>
+
+		</div>
+	</nav>
+
+	<!-- END NAVBAR -->
+
+
+
+	<!-- Sidebar -->
+
+	<!-- dyanamic sidebar banate he boostrap se nhi lenge -->
+	<div class="sidebar mt-2">
+
+		<!-- sidebar ke uepr ka cross sing deta he ye -->
+		<span onclick="toggleSidebar()" class=" cross-btn">&times;</span>
+		
+		
+		
+
+		<!-- Home pe click karoge to index page open ho jayaga -->
+		<a id="home-link"  href="#" th:href="@{/user/index}" class="item active"> 
+		<i class="fa fa-home" aria-hidden="true"></i>Home
+		</a>
+
+
+
+		<!-- view contact pe click karoge to show-contact page ka pahila page open ho jaye th:href="@{user/show-contacts/0} isilye link lagai-->
+		<a id="contacts-link" href="#" th:href="@{/user/show-contacts/0}" class="item"><i
+			class="fa fa-id-card-alt"></i>View Contacts</a>
+
+
+		<!-- th:href="@{/user/add-contact}" ise jab aap sidebar ke add contct pe click karoge to add-contct wala page open hoga
+               Add Contact is word pe humane link lagai he -->
+		<a id="add-link" href="#" th:href="@{/user/add-contact}" class="item"><i
+			class="fa fa-pencil-alt"></i>Add Contact</a> 
+			
+			
+			
+			
+			
+			
+			<!-- link deni he to thymeleaf me @ use karte he..dyanamic value lani he to $ use karte he -->
+			
+			<a id="profile-link" href="#"  th:href="@{/user/profile}"  class="item">
+			<i class="fa fa-user-circle"></i>Your Profile</a> 
+			
+			
+			
+			<!-- setting tab -->
+			<a id="settings-link" href="#"  th:href="@{/user/settings}"   class="item"><i class="fa fa-cogs"></i>Setting</a>
+			
+			
+			
+
+		<!-- th:href="@{/logout}" sidebar ke logout word pe humane logout form ki link di he -->
+		<a href="#" th:href="@{/logout}" class="item"><i
+			class="fa fa-sign-out-alt"></i>Logout</a>
+
+		<div class="divider"></div>
+
+	</div>
+	<!-- END SIDEBAR -->
+
+
+	<!-- Content area -->
+	<!-- MAIN Content he matlab jo chiz dekhegi o is content ke andhar hi dekhigi -->
+
+	<!-- onclick="toggleSidebar()" jab click karo bars pe to dekhe -->
+	<div class="content">
+
+		<i onclick="toggleSidebar()" class="fa fa-bars" aria-hidden="true"></i>
+
+
+                          <!-- Message Box -->
+		<!-- sucess message when add contact successfully {session.message} seeesion me msg hoga tabi if chalega dikhega varana nahi dikhega 
+		{session.message.content} session ke andhar message he usaka content chaiye-->
+
+
+		<div th:if="${session.message}" class="container">
+
+			<div th:classappend="${'alert-'+session.message.type}"
+				class="alert  text-center" role="alert">
+
+				<span th:text="${session.message.content}"></span>
+
+			</div>
+
+			<!-- message ekbar dikhane ke baad remove hona chaiye -->
+			<th:block th:text="${#session.removeAttribute('message')}">
+			</th:block>
+
+
+		</div>
+
+		<!-- content dyanamic varibale he jo aayaega -->
+		<div th:replace="${content}"></div>
+
+	</div>
+	<!-- END CONTENT AREA -->
+
+
+
+
+
+
+
+
+
+
+
+	                <!-- Optional JavaScript -->
+	
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+		
+		
+		
+		
+		           <!-- sweet alert jab aap delete button pe click kare to deleteConatcat function call hoga script ka -->
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		
+		<script >
+		
+		function deleteContact(cid)
+		{
+			
+			swal({
+				  title: "Are you sure?",
+				  text: "You Want To Delete This Contact...",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+				   
+					  window.location="/user/delete/"+cid;
+					  
+					  
+				  } else {
+				    swal("Your Contact is Safe");
+				  }
+				});
+			
+			
+		}
+		
+		
+		</script>
+
+	<!-- apane jo js file banai he usako link kiya -->
+	<script th:src="@{/js/script.js}"></script>
+
+</body>
+</html>
